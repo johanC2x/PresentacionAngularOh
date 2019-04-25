@@ -1,0 +1,100 @@
+<br/><br/>
+<div style="text-align:center">
+  <h1>
+    Módulo de creacion de Personas
+  </h1>
+</div>
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-md-4">Nombres: </label>
+            <input type="text" class="form-control" formControlName="nombre_persona" #nombre_persona />
+          </div>
+          <div *ngIf="angForm.controls['nombre_persona'].invalid && (angForm.controls['nombre_persona'].dirty
+          || angForm.controls['nombre_persona'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['nombre_persona'].errors.required">
+              Nombre de persona es requerido
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-md-4">Apellidos: </label>
+            <input type="text" class="form-control" formControlName="apellido_persona" #apellido_persona />
+          </div>
+          <div *ngIf="angForm.controls['apellido_persona'].invalid && (angForm.controls['apellido_persona'].dirty
+          || angForm.controls['apellido_persona'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['apellido_persona'].errors.required">
+              Apellido de persona es requerido
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-md-4">Edad: </label>
+            <input type="text" class="form-control" formControlName="edad_persona" #edad_persona />
+          </div>
+          <div *ngIf="angForm.controls['edad_persona'].invalid && (angForm.controls['edad_persona'].dirty
+          || angForm.controls['edad_persona'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['edad_persona'].errors.required">
+              Apellido de persona es requerido
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label class="col-md-4">Nacimiento: </label>
+            <input type="date" class="form-control" formControlName="nacimiento_persona" #nacimiento_persona />
+          </div>
+          <div *ngIf="angForm.controls['nacimiento_persona'].invalid && (angForm.controls['nacimiento_persona'].dirty
+          || angForm.controls['nacimiento_persona'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['nacimiento_persona'].errors.required">
+              Apellido de persona es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button (click)="addPersona(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
+        [disabled]="angForm.pristine || angForm.invalid"
+        class="btn btn-primary">Crear Persona</button>
+        &nbsp;
+        <button (click)="obtenerPromedio()" class="btn btn-primary">
+          Obtener Promedio
+        </button>
+        &nbsp;
+        <button (click)="obtenerDesviacion()" class="btn btn-primary">
+          Obtener Desviación
+        </button>
+      </div>
+    </form>
+    <div *ngIf="showProm === true">El promedio de edades es {{+promedio}}</div>
+    <div *ngIf="showDesv === true">La desviación estandar de edades es {{+promedio}}</div>
+  </div>
+</div>
+<br/>
+<table class="table table-hover table-border" >
+  <thead>
+    <th style="text-align:center">Nombres</th>
+    <th style="text-align:center">Apellidos</th>
+    <th style="text-align:center">Edad</th>
+    <th style="text-align:center">Nacimiento</th>
+    <th style="text-align:center">Accion</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let person of persons">
+      <td style="text-align:center">{{person.data.nombre_persona}}</td>
+      <td style="text-align:center">{{person.data.apellido_persona}}</td>
+      <td style="text-align:center">{{person.data.edad_persona}}</td>
+      <td style="text-align:center">{{person.data.nacimiento_persona}}</td>
+      <td style="text-align:center">
+        <button class="btn btn-danger" (click)="delete(person.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
