@@ -18,6 +18,8 @@ export class PersonaComponent implements OnInit {
   promedio: Number;
   showProm: Boolean;
   showDesv: Boolean;
+  save: Boolean;
+  current_id: String;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +29,7 @@ export class PersonaComponent implements OnInit {
   };
 
   createForm(){
+    this.save = true;
     this.angForm=this.fb.group({
       nombre_persona :['', Validators.required],
       apellido_persona :['', Validators.required],
@@ -47,8 +50,55 @@ export class PersonaComponent implements OnInit {
     this.ns.addNegocio(nombre_persona,apellido_persona,edad_persona,nacimiento_persona);
   }
 
+  updatePerson(nombre_persona,apellido_persona,edad_persona,nacimiento_persona){
+    const obj={
+      nombre_persona: nombre_persona,
+      apellido_persona: apellido_persona,
+      edad_persona: edad_persona,
+      nacimiento_persona: nacimiento_persona
+    };
+    this.ns.updatePerson(obj,this.current_id);
+    this.createForm();
+  }
+
   delete(id: string) {
     this.ns.deletePerson(id);
+  }
+
+  view(id: string){
+    this.save = false;
+    this.current_id = id;
+    this.ns.getPerson(id).subscribe(obj => {
+      let data = obj.payload.data();
+      let person = {
+        nombre_persona:'',
+        apellido_persona:'',
+        edad_persona:'',
+        nacimiento_persona:'',
+      };
+      for (const prop in data) {
+        switch(prop){
+          case 'nombre_persona':
+            person.nombre_persona = data[prop];
+            break;
+          case 'apellido_persona':
+            person.apellido_persona = data[prop];
+            break;
+          case 'edad_persona':
+            person.edad_persona = data[prop];
+            break;
+          case 'nacimiento_persona':
+            person.nacimiento_persona = data[prop];
+            break;
+        }
+      }
+      this.angForm=this.fb.group({
+        nombre_persona :[person.nombre_persona, Validators.required],
+        apellido_persona :[person.apellido_persona, Validators.required],
+        edad_persona :[person.edad_persona, Validators.required],
+        nacimiento_persona :[person.nacimiento_persona, Validators.required],
+      });
+    });
   }
 
   obtenerPromedio(){

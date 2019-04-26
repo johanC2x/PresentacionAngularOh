@@ -59,9 +59,11 @@
       </div>
 
       <div class="form-group">
-        <button (click)="addPersona(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
-        [disabled]="angForm.pristine || angForm.invalid"
-        class="btn btn-primary">Crear Persona</button>
+        <button *ngIf="save === true" (click)="addPersona(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
+            [disabled]="angForm.pristine || angForm.invalid"
+            class="btn btn-primary">Crear Persona</button>
+        <button *ngIf="save === false" (click)="updatePerson(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
+            class="btn btn-primary">Actualizar Persona</button>
         &nbsp;
         <button (click)="obtenerPromedio()" class="btn btn-primary">
           Obtener Promedio
@@ -83,7 +85,7 @@
     <th style="text-align:center">Apellidos</th>
     <th style="text-align:center">Edad</th>
     <th style="text-align:center">Nacimiento</th>
-    <th style="text-align:center">Accion</th>
+    <th style="text-align:center" colspan="2">Accion</th>
   </thead>
   <tbody>
     <tr *ngFor="let person of persons">
@@ -92,6 +94,8 @@
       <td style="text-align:center">{{person.data.edad_persona}}</td>
       <td style="text-align:center">{{person.data.nacimiento_persona}}</td>
       <td style="text-align:center">
+        <button class="btn btn-primary" (click)="view(person.id)">Actualizar</button>
+        &nbsp;&nbsp;
         <button class="btn btn-danger" (click)="delete(person.id)">Eliminar</button>
       </td>
     </tr>

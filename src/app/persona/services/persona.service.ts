@@ -33,25 +33,12 @@ export class PersonaService {
     return this.firestore.collection('persona').snapshotChanges();
   }
 
-  /*
-  editNegocio(id){
-    return this.http.get(`${this.uri}/edit/${id}`);
+  getPerson(id){
+    return this.firestore.doc('persona/'+id).snapshotChanges();
   }
 
-  updateNegocio(nombre_persona,apellido_persona,edad_persona,id){
-    const obj={
-      nombre_persona: nombre_persona,
-      apellido_persona:apellido_persona,
-      edad_persona:edad_persona
-    };
-    this.http
-    .post(`${this.uri}/update/${id}`,obj)
-    .subscribe(() => console.log('Done'));
+  updatePerson(obj,id){
+    return this.firestore.collection('persona').doc(id).set(obj);
   }
-
-  deleteNegocio(id){
-    return this.http.get(`${this.uri}/delete/${id}`);
-  }
-  */
- 
+  
 }
