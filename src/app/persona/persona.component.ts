@@ -48,6 +48,8 @@ export class PersonaComponent implements OnInit {
 
   addPersona(nombre_persona,apellido_persona,edad_persona,nacimiento_persona){
     this.ns.addNegocio(nombre_persona,apellido_persona,edad_persona,nacimiento_persona);
+    this.angForm.reset();
+    this.angForm.markAsUntouched();
   }
 
   updatePerson(nombre_persona,apellido_persona,edad_persona,nacimiento_persona){

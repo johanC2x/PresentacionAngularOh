@@ -62,7 +62,7 @@
         <button *ngIf="save === true" (click)="addPersona(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
             [disabled]="angForm.pristine || angForm.invalid"
             class="btn btn-primary">Crear Persona</button>
-        <button *ngIf="save === false" (click)="updatePerson(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value)" 
+        <button *ngIf="save === false" (click)="updatePerson(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value); angForm.reset()" 
             class="btn btn-primary">Actualizar Persona</button>
         &nbsp;
         <button (click)="obtenerPromedio()" class="btn btn-primary">
