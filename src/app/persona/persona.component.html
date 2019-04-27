@@ -100,7 +100,7 @@
       <td style="text-align:center">
         <button class="btn btn-primary" (click)="view(person.id)">Actualizar</button>
         &nbsp;&nbsp;
-        <button class="btn btn-danger" (click)="delete(person.id)">Eliminar</button>
+        <button class="btn btn-danger" (click)="openModalDelete(person.id)">Eliminar</button>
       </td>
     </tr>
   </tbody>
@@ -118,6 +118,24 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop" [ngStyle]="{'display':displayDelete}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':displayDelete}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <h3 style="text-align:center" >Seguro desea eliminar este registro?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="delete(current_id)" >Aceptar</button>
+        <button type="button" class="btn btn-default" (click)="closeModalDelete()" >Cerrar</button>
       </div>
     </div>
   </div>

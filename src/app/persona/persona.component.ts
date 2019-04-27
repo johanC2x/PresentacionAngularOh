@@ -22,12 +22,14 @@ export class PersonaComponent implements OnInit {
   save: Boolean;
   current_id: String;
   display: String;
+  displayDelete: String;
 
   constructor(
     private fb: FormBuilder,
     private ns: PersonaService
   ) {
     this.display='none';
+    this.displayDelete='none';
     this.createForm();
   };
 
@@ -65,12 +67,6 @@ export class PersonaComponent implements OnInit {
     };
     this.save = true;
     this.display='block';
-    this.fb.group({
-      nombre_persona :['', Validators.required],
-      apellido_persona :['', Validators.required],
-      edad_persona :['', Validators.required],
-      nacimiento_persona :['', Validators.required],
-    });
     this.ns.updatePerson(obj,this.current_id);
   }
 
@@ -80,6 +76,7 @@ export class PersonaComponent implements OnInit {
   }
 
   delete(id: string) {
+    this.displayDelete='none';
     this.ns.deletePerson(id);
   }
 
@@ -163,6 +160,15 @@ export class PersonaComponent implements OnInit {
       this.promedio = +desviacion;
     });
     
+  }
+
+  openModalDelete(id: string){
+    this.current_id = id;
+    this.displayDelete='block';
+  }
+
+  closeModalDelete(){
+    this.display='none';
   }
 
   onCloseHandled(){
