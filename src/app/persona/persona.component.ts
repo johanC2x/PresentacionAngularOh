@@ -75,12 +75,12 @@ export class PersonaComponent implements OnInit {
     form.markAsUntouched();
   }
 
-  delete(id: string) {
+  delete(id: String) {
     this.displayDelete='none';
     this.ns.deletePerson(id);
   }
 
-  view(id: string){
+  view(id: String){
     this.save = false;
     this.current_id = id;
     this.ns.getPerson(id).subscribe(obj => {
@@ -168,7 +168,7 @@ export class PersonaComponent implements OnInit {
   }
 
   closeModalDelete(){
-    this.display='none';
+    this.displayDelete='none';
   }
 
   onCloseHandled(){

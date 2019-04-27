@@ -25,7 +25,7 @@ export class PersonaService {
     return this.firestore.collection('persona').add(obj);
   }
 
-  deletePerson(person_id: string){
+  deletePerson(person_id: String){
     this.firestore.doc('persona/' + person_id).delete();
   }
 
