@@ -8,7 +8,8 @@ import Persona from './modelos/Persona';
 @Component({
   selector: 'app-persona',
   templateUrl: './persona.component.html',
-  styleUrls: ['./persona.component.css']
+  styleUrls: ['./persona.component.css'],
+
 })
 export class PersonaComponent implements OnInit {
 
@@ -20,11 +21,13 @@ export class PersonaComponent implements OnInit {
   showDesv: Boolean;
   save: Boolean;
   current_id: String;
+  display: String;
 
   constructor(
     private fb: FormBuilder,
     private ns: PersonaService
   ) {
+    this.display='none';
     this.createForm();
   };
 
@@ -48,6 +51,7 @@ export class PersonaComponent implements OnInit {
 
   addPersona(nombre_persona,apellido_persona,edad_persona,nacimiento_persona){
     this.ns.addNegocio(nombre_persona,apellido_persona,edad_persona,nacimiento_persona);
+    this.display='block';
     this.angForm.reset();
     this.angForm.markAsUntouched();
   }
@@ -59,8 +63,20 @@ export class PersonaComponent implements OnInit {
       edad_persona: edad_persona,
       nacimiento_persona: nacimiento_persona
     };
+    this.save = true;
+    this.display='block';
+    this.fb.group({
+      nombre_persona :['', Validators.required],
+      apellido_persona :['', Validators.required],
+      edad_persona :['', Validators.required],
+      nacimiento_persona :['', Validators.required],
+    });
     this.ns.updatePerson(obj,this.current_id);
-    this.createForm();
+  }
+
+  reset(form: FormGroup){
+    form.reset();
+    form.markAsUntouched();
   }
 
   delete(id: string) {
@@ -147,6 +163,10 @@ export class PersonaComponent implements OnInit {
       this.promedio = +desviacion;
     });
     
+  }
+
+  onCloseHandled(){
+    this.display='none';
   }
 
   ngOnInit() {

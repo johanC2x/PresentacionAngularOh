@@ -35,7 +35,7 @@
         <div class="col-md-6">
           <div class="form-group">
             <label class="col-md-4">Edad: </label>
-            <input type="text" class="form-control" formControlName="edad_persona" #edad_persona />
+            <input type="number" class="form-control" formControlName="edad_persona" #edad_persona />
           </div>
           <div *ngIf="angForm.controls['edad_persona'].invalid && (angForm.controls['edad_persona'].dirty
           || angForm.controls['edad_persona'].touched)" class="alert alert-danger">
@@ -64,6 +64,10 @@
             class="btn btn-primary">Crear Persona</button>
         <button *ngIf="save === false" (click)="updatePerson(nombre_persona.value, apellido_persona.value, edad_persona.value, nacimiento_persona.value); angForm.reset()" 
             class="btn btn-primary">Actualizar Persona</button>
+        &nbsp;
+        <button (click)="reset(angForm)" class="btn btn-primary">
+          Limpiar
+        </button>
         &nbsp;
         <button (click)="obtenerPromedio()" class="btn btn-primary">
           Obtener Promedio
@@ -102,3 +106,19 @@
   </tbody>
 </table>
 
+<div class="backdrop" [ngStyle]="{'display':display}"></div>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <h3>Operación Correcta</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
